@@ -1,6 +1,6 @@
 # SQL-Projects
 Journey of learning SQL 
-Aggregate Functions: You discovered that SQL provides several aggregate functions like AVG(), SUM(), MIN(), MAX(), and COUNT() to summarize data. Each function serves a unique purpose:
+Aggregate Functions: SQL provides several aggregate functions like AVG(), SUM(), MIN(), MAX(), and COUNT() to summarize data. Each function serves a unique purpose:
 
 AVG() calculates the average value from a specified field.
 SUM() adds up all the values in a specified field.
