@@ -1,4 +1,4 @@
-# SQL-Project (Fulcrum and SQL integration)
+# SQL-Project (Fulcrum and SQL Integration)
 
 ## Phase 1: Install What You Need
 
