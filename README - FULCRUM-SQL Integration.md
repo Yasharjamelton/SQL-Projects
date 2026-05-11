@@ -1,7 +1,9 @@
 # SQL-Project (Fulcrum and SQL integration)
 
-Phase 1: Install What You Need
-*****Step 1: Install SQL Server******
+## Phase 1: Install What You Need
+
+## Step 1: Install SQL Server
+
 If you do not already have SQL Server installed, install:
 SQL Server Developer Edition
 SQL Server Management Studio, also called SSMS
@@ -14,11 +16,16 @@ or:
 localhost\SQLEXPRESS
 depending on how SQL Server was installed.
 
-****Step 2: Create a Database****
+## Step 2: Create a Database
+
 In SSMS, click New Query and run:
 
-###CREATE DATABASE FulcrumWarehouse;
-###GO
+```sql
+CREATE DATABASE FulcrumWarehouse
+
+GO
+```
+
 Should keep in mind that :
 if you really need the database files inside D:\Yashar projects\SQL-Projects\DATA-SQL SERVER\:
 Close SSMS (to release any file locks).
@@ -32,7 +39,7 @@ This creates a new database called:
 FulcrumWarehouse
 This database will store your Fulcrum data.
 
-******Step 3: Create Database Schemas*******
+## Step 3: Create Database Schemas
 
 A schema is like a folder inside the database.
 We will use:
@@ -42,24 +49,30 @@ reporting
 for cleaned analyst-friendly tables.
 Run this in SSMS:
 
-###USE FulcrumWarehouse;
-###GO
-###CREATE SCHEMA staging;
-###GO
-###CREATE SCHEMA reporting;
-###GO
+```sql
+USE FulcrumWarehouse
+GO
+CREATE SCHEMA staging
+GO
+CREATE SCHEMA reporting
+GO
 
-***Phase 2: Create SQL Tables***
+## Phase 2: Create SQL Tables
+
 We need two important tables first.
 
-********Step 4: Create the Raw Webhook Events Table*******
+## Step 4: Create the Raw Webhook Events Table
+
 This table stores every message received from Fulcrum.
 
 Run this:
-##USE FulcrumWarehouse;
-##GO
 
-###CREATE TABLE staging.fulcrum_webhook_events (
+## USE FulcrumWarehouse
+
+## GO
+
+ CREATE TABLE staging.fulcrum_webhook_events (
+
     event_id INT IDENTITY(1,1) PRIMARY KEY,
     received_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
     event_type NVARCHAR(100) NULL,
@@ -72,13 +85,13 @@ Run this:
 
 What this table does:
 
-Column	Meaning
+Column Meaning
 event_id :Internal ID for each webhook event
 received_at: When your system received the Fulcrum event
 event_type: Whether it was create, update, delete, etc.
 fulcrum_record_id: The Fulcrum record ID
 payload: The full raw JSON message
-processed_at	When your system processed it
+processed_at When your system processed it
 processing_status: pending, processed, failed
 error_message: Stores errors if something goes wrong
 This table is very important because it acts like your audit log.
@@ -105,9 +118,12 @@ This table stores the latest version of each Fulcrum record.
 
 Run:
 
-###USE FulcrumWarehouse;
-####GO
-####CREATE TABLE staging.fulcrum_records_current (
+### USE FulcrumWarehouse
+
+#### GO
+
+#### CREATE TABLE staging.fulcrum_records_current (
+
     fulcrum_record_id NVARCHAR(100) NOT NULL PRIMARY KEY,
     app_id NVARCHAR(100) NULL,
     created_at DATETIME2 NULL,
@@ -130,3 +146,9 @@ longitude:GPS longitude
 raw_json:Full latest record data
 last_synced_at:When SQL Server last received it
 is_deleted:Whether the record was deleted
+
+--> Something to consider :
+ Never put SQL Server .mdf / .ldf files under Git version control.
+ These are binary database files, not source code or scripts. 
+ They are large, change constantly, and cannot be merged or diffed meaningfully.
+
