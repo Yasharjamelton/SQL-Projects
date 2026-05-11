@@ -61,6 +61,7 @@ GO
 
 We need two important tables first.
 
+
 ## Step 4: Create the Raw Webhook Events Table
 
 This table stores every message received from Fulcrum.
@@ -113,7 +114,7 @@ SQL Server Browser is a lightweight service that only listens for incoming insta
 Microsoft recommends running it under Local Service (the default) or Network Service.
 Local System has far more privileges than needed – using it would violate the principle of least privilege and could create unnecessary security risks.
 
-**Step 5: Create the Current Records Table**
+** Step 5: Create the Current Records Table**
 This table stores the latest version of each Fulcrum record.
 
 Run:
