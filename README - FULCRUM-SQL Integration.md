@@ -66,12 +66,11 @@ We need two important tables first.
 This table stores every message received from Fulcrum.
 
 Run this:
-
-## USE FulcrumWarehouse
-
-## GO
-
 ```sql
+USE FulcrumWarehouse
+
+GO
+
  CREATE TABLE staging.fulcrum_webhook_events (
 
     event_id INT IDENTITY(1,1) PRIMARY KEY,
