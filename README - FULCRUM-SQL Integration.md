@@ -56,11 +56,10 @@ CREATE SCHEMA staging
 GO
 CREATE SCHEMA reporting
 GO
-
-## Phase 2: Create SQL Tables
+```
+## Phase 2: create sql Tables
 
 We need two important tables first.
-
 
 ## Step 4: Create the Raw Webhook Events Table
 
@@ -72,6 +71,7 @@ Run this:
 
 ## GO
 
+```sql
  CREATE TABLE staging.fulcrum_webhook_events (
 
     event_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -84,6 +84,7 @@ Run this:
     error_message NVARCHAR(MAX) NULL
 );
 
+```
 What this table does:
 
 Column Meaning
@@ -114,16 +115,14 @@ SQL Server Browser is a lightweight service that only listens for incoming insta
 Microsoft recommends running it under Local Service (the default) or Network Service.
 Local System has far more privileges than needed – using it would violate the principle of least privilege and could create unnecessary security risks.
 
-** Step 5: Create the Current Records Table**
+## Step 5: Create the Current Records Table**
 This table stores the latest version of each Fulcrum record.
 
 Run:
-
-### USE FulcrumWarehouse
-
-#### GO
-
-#### CREATE TABLE staging.fulcrum_records_current (
+ ```sql
+USE FulcrumWarehouse
+GO
+CREATE TABLE staging.fulcrum_records_current (
 
     fulcrum_record_id NVARCHAR(100) NOT NULL PRIMARY KEY,
     app_id NVARCHAR(100) NULL,
@@ -135,6 +134,8 @@ Run:
     last_synced_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
     is_deleted BIT NOT NULL DEFAULT 0
 );
+
+```
 What this table does:
 
 Column Meaning:
